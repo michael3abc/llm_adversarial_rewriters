@@ -73,20 +73,20 @@ We show a real rewrite example from our pipeline. To prevent misuse, we only dis
   - `data/orig_prompt/` contain original (toxic) prompt to be rewritten.
 
 ## 3. End-to-end inference & evaluation
-   Edit DATASET_PATH in run.sh to choose which split to run (part1/part2), then:
+   Edit `DATASET_PATH` in `run.sh` to choose which split to run (part1/part2), then:
    ```bash
    bash ./run.sh
    ```   
    `run.sh` executes :
-   - Create results/evaluate_rewrite/ and snapshot the current config (src/algo.yaml).
-   - run_inference.py: run evaluate_rewrite() to rewrite prompts.
-   - run_eval.py: score outputs with default safety, chat, and usefulness evaluators.
-   - src/utils/reporter.py: export results.csv, compute summary statistics, and suffix the result folder with _<trial_id>_<final_acc>.
+   - Create `results/evaluate_rewrite/` and snapshot the current config (`src/algo.yaml`).
+   - `run_inference.py`: run `evaluate_rewrite()` to rewrite prompts.
+   - `run_eval.py`: score outputs with default safety, chat, and usefulness evaluators.
+   - `src/utils/reporter.py`: export `results.csv`, compute summary statistics, and suffix the result folder with `_<trial_id>_<final_acc>`.
   
   Main outputs:
    - Rewrite Prompts Only: `.../prompts_adl_final_25w_part1_with_cost.jsonl`
    - Rewrites + Score: `.../raw_adl_final_25w_part1_with_cost.jsonl`  
-   Example:
+   Example record:
    - ```json
       {
       "id": "...",
