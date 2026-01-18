@@ -1,0 +1,12 @@
+**/__pycache__/
+models/*
+results/*
+__pycache__/
+.venv
+.cache
+.vscode
+data
+results/
+runs/
+AGENTS.md
+data

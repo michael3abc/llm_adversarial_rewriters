@@ -1,0 +1,15 @@
+[project]
+name = "RL_rewriter"        # 套件名稱（隨你，但別跟 PyPI 熱門包撞名）
+version = "0.0.1"
+description = "RL_rewriting_pipeline"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []                    # 如需自動安裝依賴可填，但你已有 train_requirements.txt
+
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["train*", "src*"]                 # 只封裝 train/ 這棵樹（你也可擴到其它子包）
