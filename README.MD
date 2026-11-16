@@ -1,9 +1,9 @@
-# **LLMs as Adversarial Rewriters: Learning Safe, Intent-Preserving Prompt Transformations**
+# **LLMs as Adversarial Rewriters: Evaluating Prompt Transformations for Defensive Red-Teaming**
 
 This project is built on the ADL final challenge:
 [Jailbreak Olympics: Building & Breaking Safety Systems](https://github.com/yenshan0530/2025-ADL-Final-Challenge-Release).
 
-We use **Qwen2.5-14B-Instruct** as a **prompt rewriter** to transform *toxic / policy-violating* user requests into **safe, intent-preserving rewrites**—i.e., prompts that a downstream LLM would otherwise reject under its safety policy.
+This course project studies **adversarial prompt rewriting** with **Qwen2.5-14B-Instruct** for controlled defensive red-teaming. It evaluates rewritten requests with configured safety and relevance judges; a favorable judge score does not establish that a rewritten request or downstream response is safe.
 
 > Note: This repository focuses on the **rewriting component** and its training pipeline.
 
@@ -19,9 +19,9 @@ We use **Qwen2.5-14B-Instruct** as a **prompt rewriter** to transform *toxic / p
 - **SFT (QLoRA):** Supervised fine-tuning on *(1,1)* successful rewrites to improve stability and generalization.
 - **DPO:** Preference learning with **1 positive** *(1,1)* vs **n negatives** to bias the model toward higher-quality rewrites.
 
-## What this enables
-- Safer inputs while preserving the user’s original intent (as much as possible).
-- More consistent rewrites compared to prompt-only baselines.
+## What this evaluates
+- How rewritten requests are classified by the configured safety guard, and how a separate judge rates downstream responses against the original requests.
+- Rewriting methods compared under the reported evaluation setup.
 - A practical iterative loop: **rewrite data → SFT → DPO → rewrite data**.
 
 ## Results
@@ -35,6 +35,10 @@ We use **Qwen2.5-14B-Instruct** as a **prompt rewriter** to transform *toxic / p
 | DPO       | 0.8265             | **0.6864**           | 0.5771    | **0.5783**         |
 
 <sub><em>Table 1: Overall performance across methods.</em></sub>
+
+**Metric interpretation and limits.** The safety score records the configured guard's classification of the rewritten prompt. The relevance score records a separate judge's assessment of whether the downstream response addresses the original request. Neither score establishes human-verified safety or reduced deployment risk.
+
+DPO improves weighted final accuracy (0.5698 → 0.5783) and relevance (0.6272 → 0.6864) relative to QLoRA in this table, while safety (0.9267 → 0.8265) and unweighted final accuracy (0.5913 → 0.5771) decrease. The weighted result therefore represents a trade-off in this evaluation, not an improvement across all metrics.
 
 ## Example (Before / After)
 
